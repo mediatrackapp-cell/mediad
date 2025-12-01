@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Tracker | Track Your Anime & Manga</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Auth Page -->
+    <div id="auth-page" class="auth-container" style="display: none;">
+        <div class="auth-background"></div>
+        
+        <div class="auth-card">
+            <div class="auth-header">
+                <div class="auth-icon">
+                    <svg id="auth-icon-svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
+                        <polyline points="10 17 15 12 10 7"></polyline>
+                        <line x1="15" y1="12" x2="3" y2="12"></line>
+                    </svg>
+                </div>
+                <h1 id="auth-title" data-testid="auth-title">Welcome Back</h1>
+                <p id="auth-subtitle" data-testid="auth-subtitle">Sign in to continue</p>
+            </div>
+
+            <form id="auth-form" class="auth-form">
+                <div id="name-group" class="form-group-auth" style="display: none;">
+                    <label for="auth-name">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                        <span>Full Name</span>
+                    </label>
+                    <input id="auth-name" name="name" type="text" placeholder="Enter your full name" data-testid="signup-name-input">
+                </div>
+
+                <div class="form-group-auth">
+                    <label for="auth-email">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="4" width="18" height="16" rx="2"></rect>
+                            <path d="m3 4 9 9 9-9"></path>
+                        </svg>
+                        <span>Email</span>
+                    </label>
+                    <input id="auth-email" name="email" type="email" placeholder="Enter your email" required data-testid="auth-email-input">
+                </div>
+
+                <div class="form-group-auth">
+                    <label for="auth-password">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                        </svg>
+                        <span>Password</span>
+                    </label>
+                    <input id="auth-password" name="password" type="password" placeholder="Enter your password (min 8 characters)" required data-testid="auth-password-input">
+                </div>
+
+                <div id="auth-error-message" class="error-message" style="display: none;" data-testid="auth-error-message"></div>
+                <div id="auth-success-message" class="success-message" style="display: none;" data-testid="auth-success-message"></div>
+
+                <button type="submit" class="auth-submit-btn" data-testid="auth-submit-button">
+                    <span id="submit-text">Sign In</span>
+                </button>
+            </form>
+
+            <div class="auth-toggle">
+                <p>
+                    <span id="toggle-text">Don't have an account?</span>
+                    <button type="button" id="toggle-btn" data-testid="auth-toggle-button">Sign Up</button>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main App (Media Tracker) -->
+    <div id="main-app" class="app-container" style="display: none;">
+        <!-- Header with User Info -->
+        <div class="app-header">
+            <div class="header-left">
+                <h1 class="app-title">📚 Media Tracker</h1>
+                <p class="subtitle">Track your favorite anime, manga, and more</p>
+            </div>
+            <div class="header-right">
+                <div class="user-info-header">
+                    <div class="user-avatar">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </div>
+                    <span id="header-user-name">User</span>
+                </div>
+                <button id="logout-btn" class="logout-btn">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                        <polyline points="16 17 21 12 16 7"></polyline>
+                        <line x1="21" y1="12" x2="9" y2="12"></line>
+                    </svg>
+                    Logout
+                </button>
+            </div>
+        </div>
+
+        <div class="content-wrapper">
+            <!-- Filter Section -->
+            <div class="filter-section">
+                <button class="filter-chip active" data-filter="all">All</button>
+                <button class="filter-chip" data-filter="manga">Manga</button>
+                <button class="filter-chip" data-filter="manhwa">Manhwa</button>
+                <button class="filter-chip" data-filter="manhua">Manhua</button>
+                <button class="filter-chip" data-filter="anime">Anime</button>
+                <input type="text" id="searchInput" class="search-box" placeholder="Search media...">
+            </div>
+
+            <!-- Add Media Button -->
+            <div class="add-section">
+                <button class="add-media-btn" onclick="showAddModal()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 12h14"></path>
+                        <path d="M12 5v14"></path>
+                    </svg>
+                    Add Media
+                </button>
+            </div>
+
+            <!-- Media Items Grid -->
+            <div class="items-container">
+                <div id="mediaGrid" class="items-grid">
+                    <!-- Media cards will be rendered here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add/Edit Media Modal -->
+    <div id="mediaModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Add Media</h2>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="mediaForm">
+                    <input type="hidden" id="mediaId">
+                    
+                    <div class="form-group">
+                        <label for="mediaTitle">Title *</label>
+                        <input type="text" id="mediaTitle" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="mediaType">Type *</label>
+                        <select id="mediaType" required>
+                            <option value="manga">Manga</option>
+                            <option value="manhwa">Manhwa</option>
+                            <option value="manhua">Manhua</option>
+                            <option value="anime">Anime</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="mediaStatus">Status</label>
+                        <select id="mediaStatus">
+                            <option value="plan">Plan to Read</option>
+                            <option value="reading">Reading</option>
+                            <option value="on-hold">On Hold</option>
+                            <option value="completed">Completed</option>
+                            <option value="dropped">Dropped</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="mediaCurrent">Current Chapter/Episode</label>
+                        <input type="number" id="mediaCurrent" min="0" value="0">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="mediaTotal" id="mediaTotalLabel">Total Chapters</label>
+                        <input type="number" id="mediaTotal" min="0" value="0">
+                    </div>
+                    
+                    <button type="submit" class="btn-primary">Save</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div id="deleteModal" class="modal">
+        <div class="modal-content small">
+            <div class="modal-header">
+                <h2>Confirm Delete</h2>
+                <button class="close-btn" onclick="closeDeleteModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete this media item?</p>
+                <div class="modal-actions">
+                    <button class="btn-secondary" onclick="closeDeleteModal()">Cancel</button>
+                    <button class="btn-danger" onclick="confirmDelete()">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-container">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

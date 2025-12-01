@@ -21,11 +21,10 @@ ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
 
 # MongoDB connection
-mongo_url = os.environ["mongodb+srv://mediatrackapp:devki1984@cluster0.fxztraf.mongodb.net/?appName=Cluster0"]   # Atlas URI stored in Render
-db_name = os.environ["media_tracker"]       # e.g. "media_tracker"
+mongo_url = os.environ["MONGO_URL"]   # Atlas URI stored in Render
+db_name = os.environ["DB_NAME"]       # e.g. "media_tracker"
 client = AsyncIOMotorClient(mongo_url)
 db = client[db_name]
-
 
 # Security
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")

@@ -21,8 +21,8 @@ ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
 
 # MongoDB connection
-mongo_url = os.environ['mongodb+srv://mediatrackapp:devki1984@cluster0.fxztraf.mongodb.net/?appName=Cluster0']
-db_name = os.environ['media_tracker']
+mongo_url = os.environ["mongodb+srv://mediatrackapp:devki1984@cluster0.fxztraf.mongodb.net/?appName=Cluster0"]   # Atlas URI stored in Render
+db_name = os.environ["media_tracker"]       # e.g. "media_tracker"
 client = AsyncIOMotorClient(mongo_url)
 db = client[db_name]
 
@@ -37,9 +37,10 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24 * 7  # 7 days
 # Email configuration
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
-EMAIL_USERNAME = os.environ.get('EMAIL_USERNAME')
-EMAIL_PASSWORD = os.environ.get('EMAIL_PASSWORD')
-FRONTEND_URL = os.environ.get('FRONTEND_URL', 'http://localhost:3000')
+EMAIL_USERNAME = os.environ.get("pikagaming51@gmail.com")   # generic key
+EMAIL_PASSWORD = os.environ.get("juqx tkov nckg sztx")   # generic key
+FRONTEND_URL = os.environ.get("FRONTEND_URL", "http://localhost:3000")
+
 
 # Create the main app
 app = FastAPI()
